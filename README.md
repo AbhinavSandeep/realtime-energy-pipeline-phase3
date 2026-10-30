@@ -20,8 +20,8 @@ two million time-stamped smart-meter readings in real time.
 Requirements: Docker Desktop (or Docker Engine + Compose v2), about 6 GB free RAM for Docker, 2 GB disk.
 
 ```bash
-git clone <this repository>
-cd realtime-energy-pipeline
+git clone https://github.com/AbhinavSandeep/realtime-energy-pipeline-phase3.git
+cd realtime-energy-pipeline-phase3
 cp .env.example .env          # then change the passwords in .env
 docker compose up -d --build  # first start downloads images and the data set (a few minutes)
 docker compose ps             # all services "running"/"healthy", kafka-init "exited (0)"
@@ -156,3 +156,15 @@ python -m pytest producer/tests
 Single Kafka broker (replication factor 1) to fit a 16 GB laptop; no TLS/SASL between services;
 events older than the watermark are dropped by Spark (counted only via the late-event setting).
 These points are discussed in the project report.
+
+## Screenshots (live run, 29 Oct 2026)
+
+Scaled setup with 3 producers and 2 Spark workers.
+
+| Grafana dashboard | Spark streaming queries |
+|---|---|
+| ![Grafana](docs/screenshots/grafana_dashboard_live.png) | ![Spark queries](docs/screenshots/spark_streaming_queries.png) |
+| **Kafka topics** | **Spark master and workers** |
+| ![Kafka topics](docs/screenshots/kafka_topics.png) | ![Spark master](docs/screenshots/spark_master_workers.png) |
+| **Containers** | **API answers** |
+| ![Containers](docs/screenshots/docker_compose_ps.png) | ![API](docs/screenshots/api_responses.png) |
